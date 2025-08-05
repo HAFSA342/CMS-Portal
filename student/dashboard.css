@@ -1,0 +1,199 @@
+body {
+    background: linear-gradient(135deg, #e8f5e9 0%, #ffffff 100%);
+}
+.student-dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+.sidebar {
+    width: 250px;
+    background: linear-gradient(135deg, #388E3C 0%, #4CAF50 100%);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 0;
+    box-shadow: 2px 0 20px rgba(46, 125, 50, 0.08);
+    transition: width 0.3s;
+}
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: 0 30px 30px 30px;
+    border-bottom: 1px solid #4CAF50;
+    margin-bottom: 20px;
+}
+.sidebar-header i {
+    margin-right: 12px;
+    font-size: 1.7rem;
+}
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+.sidebar nav ul li {
+    padding: 18px 30px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-left: 4px solid transparent;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.sidebar nav ul li.active, .sidebar nav ul li:hover {
+    background: #e8f5e9;
+    color: #388E3C;
+    border-left: 4px solid #388E3C;
+}
+.main-content {
+    flex: 1;
+    background: #fff;
+    padding: 40px 50px;
+    min-height: 100vh;
+    animation: fadeIn 0.7s;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.section {
+    display: none;
+}
+.section.active {
+    display: block;
+    animation: fadeIn 0.5s;
+}
+.action-btn {
+    background: linear-gradient(135deg, #388E3C 0%, #4CAF50 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    margin-top: 10px;
+}
+.action-btn:hover {
+    background: #2E7D32;
+    transform: translateY(-2px);
+}
+@media (max-width: 900px) {
+    .student-dashboard-container {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        padding: 0;
+        min-height: 60px;
+        box-shadow: none;
+    }
+    .sidebar-header {
+        display: none;
+    }
+    .sidebar nav ul {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+    }
+    .sidebar nav ul li {
+        flex: 1;
+        padding: 15px 0;
+        justify-content: center;
+        border-left: none;
+        border-bottom: 4px solid transparent;
+    }
+    .sidebar nav ul li.active, .sidebar nav ul li:hover {
+        background: #e8f5e9;
+        color: #388E3C;
+        border-bottom: 4px solid #388E3C;
+        border-left: none;
+    }
+    .main-content {
+        padding: 25px 10px;
+    }
+}
+@media (max-width: 600px) {
+    .main-content {
+        padding: 10px 2px;
+    }
+}
+
+/* Student Subjects Section */
+#studentSubjectsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.student-subject-card {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    transition: box-shadow 0.3s ease;
+}
+
+.student-subject-card:hover {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.student-subject-card h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #2c5e3f;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.subject-detail {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.subject-detail strong {
+    color: #333;
+}
+
+/* Info Grid on Dashboard */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-item strong {
+    color: #555;
+}
+
+.info-item span {
+    color: #333;
+    font-weight: 500;
+}
+
+.status-active {
+    color: #28a745;
+    font-weight: bold;
+} 

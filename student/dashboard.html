@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - SSUET Portal</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <style>
+        /* Info Grid on Dashboard */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-item strong {
+            color: #555;
+        }
+
+        .info-item span {
+            color: #333;
+            font-weight: 500;
+        }
+
+        .status-active {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #6c757d;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            z-index: 3;
+        }
+        .password-toggle:hover {
+            color: #2E7D32;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="student-dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-user-graduate"></i>
+                <span>Student Portal</span>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active" data-section="dashboard"><i class="fas fa-home"></i> Dashboard</li>
+                    <li data-section="my-subjects"><i class="fas fa-book-open"></i> My Subjects</li>
+                    <li data-section="attendance"><i class="fas fa-calendar-check"></i> View Attendance</li>
+                    <li data-section="marks"><i class="fas fa-poll"></i> View Marks</li>
+                    <li data-section="admit-card"><i class="fas fa-id-badge"></i> Admit Card</li>
+                    <li data-section="fee-voucher"><i class="fas fa-file-invoice-dollar"></i> Fee Voucher</li>
+                    <li data-section="roadmap"><i class="fas fa-road"></i> Academic Road Map</li>
+                    <li data-section="exam-schedule"><i class="fas fa-calendar-alt"></i> Exam Schedule</li>
+                    <li data-section="change-password"><i class="fas fa-key"></i> Change Password</li>
+                    <li data-section="logout"><i class="fas fa-sign-out-alt"></i> Logout</li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <div class="dashboard-header"></div>
+            <section id="dashboard-section" class="section active">
+                <h2 id="welcomeHeader"></h2>
+                <p>Welcome to your student portal. Here you can view your subjects, attendance, marks, and more.</p>
+            </section>
+            <section id="attendance-section" class="section">
+                <h2>Attendance</h2>
+                <div id="attendanceView"></div>
+            </section>
+            <section id="marks-section" class="section">
+                <h2>Marks, GPA & CGPA</h2>
+                <div id="marksView"></div>
+            </section>
+            <section id="admit-card-section" class="section">
+                <h2>Download Admit Card</h2>
+            </section>
+            <section id="my-subjects-section" class="section">
+                <h2>My Subjects & Academics</h2>
+                <div id="studentSubjectsContainer">
+                    <!-- Enrolled subjects will be rendered here by JavaScript -->
+                </div>
+            </section>
+            <section id="fee-voucher-section" class="section">
+                <h2>Download Fee Voucher</h2>
+            </section>
+            <section id="roadmap-section" class="section">
+                <h2>Academic Road Map</h2>
+                <div id="roadMap"></div>
+            </section>
+            <section id="exam-schedule-section" class="section">
+                <h2>Exam Schedule & Seating Plan</h2>
+                <div id="examSchedule"></div>
+            </section>
+            <section id="change-password-section" class="section">
+                <h2>Change Password</h2>
+                <form id="studentChangePasswordForm">
+                    <div class="password-input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Current Password" id="studentCurrentPassword" required>
+                    </div>
+                    <div class="password-input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="New Password" id="studentNewPassword" required>
+                    </div>
+                    <button type="submit" class="action-btn">Change Password</button>
+                </form>
+            </section>
+        </main>
+    </div>
+    <script src="../js/student.js"></script>
+</body>
+</html> 

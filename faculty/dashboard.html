@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Dashboard - SSUET Portal</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <style>
+        /* Subject Management Section */
+        .subject-manager {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .student-selection-container {
+            margin-bottom: 20px;
+        }
+
+        .student-selection-container label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        #studentSelector, #masterSubjectSelector {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+
+        #studentSubjectDetails.hidden {
+            display: none;
+        }
+
+        #studentSubjectDetails h3 {
+            margin-top: 20px;
+            margin-bottom: 15px;
+            color: #2c5e3f;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .subject-enrollment {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .subject-enrollment h4 {
+            margin: 0;
+            white-space: nowrap;
+        }
+
+        .enrolled-subject-card {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .enrolled-subject-card:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .subject-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .subject-card-header h5 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .subject-tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 15px;
+        }
+
+        .subject-tab {
+            padding: 10px 15px;
+            cursor: pointer;
+            border: none;
+            background-color: transparent;
+            font-size: 1rem;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .subject-tab.active {
+            color: #2c5e3f;
+            border-bottom-color: #2c5e3f;
+        }
+
+        .subject-tab-content {
+            display: none;
+        }
+
+        .subject-tab-content.active {
+            display: block;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .form-grid input {
+            width: 100%;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="faculty-dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Faculty Portal</span>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active" data-section="dashboard"><i class="fas fa-home"></i> Dashboard</li>
+                    <li data-section="student-info"><i class="fas fa-user-plus"></i> Add Student Info</li>
+                    <li data-section="attendance"><i class="fas fa-calendar-check"></i> Manage Attendance</li>
+                    <li data-section="marks"><i class="fas fa-marker"></i> Upload Marks</li>
+                    <li data-section="clo-plo"><i class="fas fa-tasks"></i> CLOs & PLOs</li>
+                    <li data-section="exam-schedule"><i class="fas fa-calendar-alt"></i> Exam Schedule</li>
+                    <li data-section="subject-management"><i class="fas fa-book"></i> Subject Management</li>
+                    <li data-section="change-password"><i class="fas fa-key"></i> Change Password</li>
+                    <li data-section="logout"><i class="fas fa-sign-out-alt"></i> Logout</li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <div class="dashboard-header"></div>
+            <section id="dashboard-section" class="section active">
+                <h2 id="welcomeHeader"></h2>
+                <p>Manage your students, attendance, marks, CLOs/PLOs, and exam schedules here.</p>
+            </section>
+            <section id="student-info-section" class="section">
+                <h2>Student Management</h2>
+                <div class="student-management">
+                    <div class="add-student-form">
+                        <h3>Add New Student</h3>
+                        <form id="addStudentForm">
+                            <div class="form-row">
+                                <input type="text" placeholder="Name" id="studentName" required>
+                                <input type="text" placeholder="Roll Number" id="studentRoll" required>
+                            </div>
+                            <div class="form-row">
+                                <input type="email" placeholder="Email" id="studentEmail" required>
+                                <input type="text" placeholder="Phone Number" id="studentPhone" required>
+                            </div>
+                            <div class="form-row">
+                                <input type="text" placeholder="Department" id="studentDept" required>
+                                <input type="password" placeholder="Password" id="studentPassword" required>
+                            </div>
+                            <button type="submit" class="action-btn">Add Student</button>
+                        </form>
+                    </div>
+                    <div class="add-student-form">
+                        <h3>Manage Students</h3>
+                        <div class="table-controls">
+                            <input type="text" id="studentSearch" placeholder="Search students..." class="search-input">
+                            <button id="refreshStudents" class="action-btn">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
+                        <div id="studentsTable"></div>
+                    </div>
+                </div>
+            </section>
+            <section id="attendance-section" class="section">
+                <h2>Mark & Manage Attendance</h2>
+                <div id="attendanceManager"></div>
+            </section>
+            <section id="marks-section" class="section">
+                <h2>Upload Student Marks</h2>
+                <div id="marksUploader"></div>
+            </section>
+            <section id="clo-plo-section" class="section">
+                <h2>Manage CLOs & PLOs</h2>
+                <div id="cloPloManager"></div>
+            </section>
+            <section id="exam-schedule-section" class="section">
+                <h2>Exam Schedule & Seating Plan</h2>
+                <div id="examScheduleManager"></div>
+            </section>
+            <section id="subject-management-section" class="section">
+                <h2>Subject & Academic Management</h2>
+                <div class="subject-manager">
+                    <div class="student-selection-container">
+                        <label for="studentSelector">Select a Student to Manage:</label>
+                        <select id="studentSelector"></select>
+                    </div>
+                    <div id="studentSubjectDetails" class="hidden">
+                        <h3 id="managingStudentName"></h3>
+                        <div class="subject-enrollment">
+                            <h4>Enroll in New Subject</h4>
+                            <select id="masterSubjectSelector"></select>
+                            <button id="enrollSubjectBtn" class="action-btn">Enroll Student</button>
+                        </div>
+                        <div id="enrolledSubjectsContainer">
+                            <h4>Enrolled Subjects</h4>
+                            <!-- Student's subjects will be dynamically rendered here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="change-password-section" class="section">
+                <h2>Change Password</h2>
+                <form id="facultyChangePasswordForm">
+                    <div class="password-input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Current Password" id="facultyCurrentPassword" required>
+                    </div>
+                    <div class="password-input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="New Password" id="facultyNewPassword" required>
+                    </div>
+                    <button type="submit" class="action-btn">Change Password</button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <!-- Edit Student Modal -->
+    <div id="editStudentModal" class="edit-modal">
+        <div class="edit-modal-content">
+            <span class="close-edit" id="closeEditModal">&times;</span>
+            <h3>Edit Student</h3>
+            <form id="editStudentForm">
+                <input type="hidden" id="editStudentId">
+                <div class="edit-form-row">
+                    <label for="editStudentName">Name</label>
+                    <input type="text" id="editStudentName" required>
+                </div>
+                <div class="edit-form-row">
+                    <label for="editStudentRoll">Roll Number</label>
+                    <input type="text" id="editStudentRoll" required>
+                </div>
+                <div class="edit-form-row">
+                    <label for="editStudentEmail">Email</label>
+                    <input type="email" id="editStudentEmail" required>
+                </div>
+                <div class="edit-form-row">
+                    <label for="editStudentPhone">Phone</label>
+                    <input type="text" id="editStudentPhone" required>
+                </div>
+                <div class="edit-form-row">
+                    <label for="editStudentDepartment">Department</label>
+                    <input type="text" id="editStudentDepartment" required>
+                </div>
+                <div class="edit-form-row">
+                    <label for="editStudentSemester">Semester</label>
+                    <input type="number" id="editStudentSemester" min="1" max="8" required>
+                </div>
+                <div class="edit-form-buttons">
+                    <button type="submit" class="btn-save">Save Changes</button>
+                    <button type="button" class="btn-cancel" id="cancelEdit">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/faculty.js"></script>
+    <noscript>
+        <div style="color: red; text-align: center; font-weight: bold;">This page requires JavaScript to function properly. Please enable JavaScript in your browser.</div>
+    </noscript>
+</body>
+</html> 

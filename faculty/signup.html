@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Faculty Signup - SSUET Portal</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+    <style>
+        body { background: #e9edf3; font-family: 'Poppins', sans-serif; }
+        .signup-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px #0002;
+            overflow: hidden;
+        }
+        .signup-header {
+            background: #2E7D32;
+            color: #fff;
+            padding: 40px 32px 24px 32px;
+            text-align: center;
+            border-radius: 20px 20px 0 0;
+        }
+        .signup-header .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .signup-header .logo i {
+            color: #4CAF50;
+            font-size: 2.2rem;
+        }
+        .signup-header h1 {
+            margin: 0 0 8px 0;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        .signup-header p {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        .signup-form-area {
+            padding: 32px 24px 24px 24px;
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+        .form-grid .full {
+            grid-column: span 2;
+        }
+        @media (max-width: 700px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-grid .full {
+                grid-column: span 1;
+            }
+        }
+        .input-group {
+            position: relative;
+        }
+        .input-group i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #2E7D32;
+            font-size: 1rem;
+            pointer-events: none;
+            z-index: 2;
+            line-height: 1;
+        }
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px 44px 12px 38px;
+            border: none;
+            border-radius: 20px;
+            font-size: 1rem;
+            background: #f8f9fa;
+            color: #555;
+            box-shadow: 0 0 0 1.5px #ececec;
+            transition: box-shadow 0.2s, background 0.2s;
+            height: 48px;
+            box-sizing: border-box;
+            display: block;
+        }
+        .input-group input:focus,
+        .input-group select:focus {
+            box-shadow: 0 0 0 2px #2E7D32;
+            outline: none;
+            background: #fff;
+        }
+        .input-group input::placeholder,
+        .input-group select:invalid {
+            color: #999;
+            opacity: 1;
+        }
+        .input-group input[type="password"] {
+            padding-right: 44px !important;
+        }
+        /* Select2 custom styles to match input fields */
+        .input-group .select2-container {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 1;
+            text-align: left !important;
+        }
+        .input-group .select2-container + i {
+            z-index: 3 !important;
+        }
+        .input-group:has(.select2-container) i {
+            z-index: 3 !important;
+        }
+        .input-group i.fas.fa-book {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #2E7D32;
+            font-size: 1rem;
+            pointer-events: none;
+            z-index: 3;
+        }
+        .select2-container--default .select2-selection--multiple {
+            background: #f8f9fa !important;
+            border: 1.5px solid #ececec !important;
+            border-radius: 20px !important;
+            min-height: 48px !important;
+            height: 48px !important;
+            box-shadow: 0 0 0 1.5px #ececec !important;
+            padding-left: 38px !important;
+            padding-right: 44px !important;
+            display: flex !important;
+            align-items: center !important;
+            overflow: hidden !important;
+            white-space: nowrap !important;
+            position: relative !important;
+            cursor: pointer !important;
+            text-align: left !important;
+            font-family: 'Poppins', sans-serif !important;
+            font-size: 1rem !important;
+            transition: box-shadow 0.2s, background 0.2s !important;
+        }
+        .select2-container--default .select2-selection--multiple:focus,
+        .select2-container--default .select2-selection--multiple:active {
+            box-shadow: 0 0 0 2px #2E7D32 !important;
+            background: #fff !important;
+        }
+        .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+            width: 100% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            text-align: left !important;
+            padding-left: 0 !important;
+            margin-left: 0 !important;
+        }
+        .select2-container--default .select2-selection--multiple .select2-selection__placeholder {
+            color: #999 !important;
+            font-size: 1rem !important;
+            font-weight: 400 !important;
+            text-align: left !important;
+            margin-left: 0 !important;
+            padding-left: 0 !important;
+            display: block !important;
+            flex: 0 1 auto !important;
+            margin-right: auto !important;
+            min-width: 0 !important;
+            width: auto !important;
+            max-width: 100% !important;
+            overflow: hidden !important;
+            white-space: nowrap !important;
+            left: 0 !important;
+            justify-content: flex-start !important;
+        }
+        .select2-container--default .select2-selection--multiple .select2-selection__rendered:only-child .select2-selection__placeholder {
+            margin: 0 auto !important;
+            text-align: center !important;
+            width: 100%;
+            display: block;
+        }
+        .select2-container--default .select2-selection--multiple .select2-selection__placeholder {
+            color: #999 !important;
+            font-size: 1rem !important;
+            font-weight: 400 !important;
+            white-space: nowrap !important;
+        }
+        .select2-container--default .select2-selection--multiple::after {
+            content: '';
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            width: 16px;
+            height: 16px;
+            pointer-events: none;
+            transform: translateY(-50%);
+            background: url('data:image/svg+xml;utf8,<svg fill="%23999" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat center center/16px 16px;
+        }
+        /* Hide the native select */
+        #subject { opacity: 0; position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; }
+        
+        /* Select2 Search Input Styles */
+        .select2-container--default .select2-search--inline .select2-search__field {
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
+            outline: none !important;
+            background: transparent !important;
+            font-size: 1rem !important;
+            color: #333 !important;
+        }
+        
+        .select2-container--default .select2-search--inline .select2-search__field::placeholder {
+            color: #999 !important;
+            opacity: 1 !important;
+        }
+        
+        .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+            padding-left: 0 !important;
+        }
+        
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            margin-right: 4px !important;
+            margin-top: 2px !important;
+            margin-bottom: 2px !important;
+        }
+        .signup-btn { width: 100%; background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%); color: #fff; font-size: 1.1rem; font-weight: 600; border: none; border-radius: 8px; padding: 14px 0; margin-top: 10px; cursor: pointer; transition: background 0.2s; }
+        .signup-btn:disabled { background: #aaa; cursor: not-allowed; }
+        .login-link { margin-top: 18px; text-align: left; font-size: 1rem; }
+        .login-link a { color: #2E7D32; text-decoration: underline; }
+        .accounts-area {
+            margin-top: 32px;
+            max-width: 700px;
+            padding: 20px 24px 24px 24px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px #0002;
+        }
+        .accounts-area h3 { margin-top: 0; font-size: 1.2rem; }
+        .accounts-list { list-style: none; padding: 0; margin: 0; }
+        .accounts-list li { margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; background: #fff; border-radius: 6px; padding: 10px 14px; box-shadow: 0 1px 4px #0001; }
+        .accounts-list .info { flex: 1; }
+        .accounts-list .delete-btn { color: #fff; background: #c00; border: none; padding: 4px 12px; border-radius: 4px; cursor: pointer; margin-left: 10px; font-size: 0.95rem; }
+        .accounts-list .delete-btn:hover { background: #a00; }
+        /* Select2 Search Input Styles - always show at left */
+        .select2-container--default .select2-selection--multiple .select2-search--inline {
+            flex: 1 1 auto;
+            min-width: 0;
+        }
+        .select2-container--default .select2-selection--multiple .select2-search__field {
+            width: 100% !important;
+            min-width: 120px !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
+            outline: none !important;
+            background: transparent !important;
+            font-size: 1rem !important;
+            color: #333 !important;
+        }
+        .select2-container--default .select2-selection--multiple .select2-search__field::placeholder {
+            color: #999 !important;
+            opacity: 1 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-header">
+            <div class="logo"><i class="fas fa-university"></i><span>SSUET</span></div>
+            <h1>Faculty Registration</h1>
+            <p>Sir Syed University of Engineering & Technology</p>
+        </div>
+        <div class="signup-form-area">
+        <form id="signupForm" class="signup-form" autocomplete="off">
+            <div id="message"></div>
+            <div class="form-grid">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="name" placeholder="Full Name" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-building"></i>
+                    <input type="text" id="department" placeholder="Department" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-user-tie"></i>
+                    <input type="text" id="designation" placeholder="Designation" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-phone"></i>
+                    <input type="text" id="phone" placeholder="Phone Number" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-book"></i>
+                        <select id="subject" multiple required></select>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Password (min 6)" minlength="6" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="confirm" placeholder="Confirm Password" minlength="6" required>
+                </div>
+                <div class="full">
+                    <button type="submit" class="signup-btn" id="signupBtn"><i class="fas fa-user-plus"></i> Create Account</button>
+                </div>
+                    <div class="login-link full"><span>Already have an account? <a href="../index.html">Login here</a></span></div>
+            </div>
+        </form>
+        <div class="accounts-area">
+            <h3>Manage Faculty Accounts</h3>
+            <ul id="accounts-list" class="accounts-list"></ul>
+        </div>
+    </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const msg = document.getElementById('message');
+            msg.innerHTML = '';
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const department = document.getElementById('department').value.trim();
+            const designation = document.getElementById('designation').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const subjectSelect = document.getElementById('subject');
+            const selectedSubjects = Array.from(subjectSelect.selectedOptions).map(opt => opt.value).filter(v => v);
+            const password = document.getElementById('password').value;
+            const confirm = document.getElementById('confirm').value;
+            if (!name || !email || !department || !designation || !phone || !selectedSubjects.length || !password || !confirm) {
+                msg.innerHTML = '<div class="error-message">Please fill in all required fields and select at least one subject.</div>';
+                return;
+            }
+            if (password.length < 6) {
+                msg.innerHTML = '<div class="error-message">Password must be at least 6 characters.</div>';
+                return;
+            }
+            if (password !== confirm) {
+                msg.innerHTML = '<div class="error-message">Passwords do not match.</div>';
+                return;
+            }
+            fetch('save_faculty.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, department, designation, phone, assigned_subjects: selectedSubjects, password })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    msg.innerHTML = '<div class="success-message">Account created successfully! Redirecting to login...</div>';
+                    document.getElementById('signupBtn').disabled = true;
+                    setTimeout(function() {
+                        window.location.href = '../index.html';
+                    }, 1500);
+                } else {
+                    msg.innerHTML = '<div class="error-message">' + (data.message || 'Could not create account.') + '</div>';
+                }
+            })
+            .catch(() => {
+                msg.innerHTML = '<div class="error-message">Network error. Please try again.</div>';
+            });
+        });
+        
+        // Dynamically populate subject dropdown
+        fetch('../data/subjects.json')
+            .then(res => res.json())
+            .then(subjects => {
+                const subjectSelect = document.getElementById('subject');
+                if (subjectSelect) {
+                    subjectSelect.innerHTML = '';
+                    subjects.forEach(subj => {
+                        const option = document.createElement('option');
+                        option.value = subj.id;
+                        option.textContent = `${subj.id} - ${subj.name}`;
+                        subjectSelect.appendChild(option);
+                    });
+                    // Initialize Select2
+                    $(subjectSelect).select2({
+                        placeholder: '', // No placeholder in selection area
+                        closeOnSelect: false,
+                        width: '100%',
+                        dropdownParent: $(subjectSelect).parent(),
+                        allowClear: true,
+                        tags: false,
+                        tokenSeparators: [',', ' '],
+                        minimumResultsForSearch: 0
+                    });
+                    // Set the search input's placeholder only if no subjects are selected
+                    function updateSubjectPlaceholder() {
+                        var selected = $(subjectSelect).val();
+                        var placeholder = (!selected || selected.length === 0) ? 'Select Subject Here' : '';
+                        $('.select2-search__field').attr('placeholder', placeholder);
+                    }
+                    $(subjectSelect).on('select2:open select2:close change', function() {
+                        setTimeout(updateSubjectPlaceholder, 0);
+                    });
+                }
+                window._allSubjects = subjects; // Save for later use in faculty list
+            });
+            
+        function renderAccounts() {
+            fetch('get_faculty_list.php')
+                .then(res => res.json())
+                .then(faculty => {
+                    const list = document.getElementById('accounts-list');
+                    const subjects = window._allSubjects || [];
+                    if (!faculty.length) {
+                        list.innerHTML = '<li style="color:#888;">No faculty accounts found.</li>';
+                        return;
+                    }
+                    let html = '';
+                    faculty.forEach((f, idx) => {
+                        let subjDisplay = '';
+                        if (f.subject) {
+                            const subj = subjects.find(s => s.id === f.subject);
+                            subjDisplay = subj ? `${subj.id} - ${subj.name}` : f.subject;
+                        } else if (f.assigned_subjects && Array.isArray(f.assigned_subjects)) {
+                            subjDisplay = f.assigned_subjects.map(code => {
+                                const subj = subjects.find(s => s.id === code);
+                                return subj ? `${subj.id} - ${subj.name}` : code;
+                            }).join(', ');
+                        }
+                        html += `<li><span class="info"><b>${f.name}</b> &lt;${f.email}&gt; | ${f.department} | ${f.designation || f.role} | ${f.phone} | ${subjDisplay}</span>` +
+                            `<button class="delete-btn" onclick="deleteAccount('${f.email}')">Delete</button></li>`;
+                    });
+                    list.innerHTML = html;
+                });
+        }
+        function deleteAccount(email) {
+            if (!confirm('Are you sure you want to delete this account?')) return;
+            fetch('delete_faculty.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email })
+            })
+            .then(res => res.json())
+            .then(data => {
+                alert(data.message || 'Account deleted');
+                renderAccounts();
+            })
+            .catch(() => alert('Network error. Please try again.'));
+        }
+        window.deleteAccount = deleteAccount;
+        document.addEventListener('DOMContentLoaded', renderAccounts);
+    </script>
+</body>
+</html> 

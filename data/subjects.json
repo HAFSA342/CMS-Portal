@@ -1,0 +1,37 @@
+[
+    {
+        "id": "CS101",
+        "name": "Operating System",
+        "is_lab": false
+    },
+    {
+        "id": "CS102",
+        "name": "Web Engineering",
+        "is_lab": false
+    },
+    {
+        "id": "CS103",
+        "name": "Data Communication and Computer Networks",
+        "is_lab": false
+    },
+    {
+        "id": "MA101",
+        "name": "Probability and Statistics",
+        "is_lab": false
+    },
+    {
+        "id": "IS101",
+        "name": "Information Security",
+        "is_lab": false
+    },
+    {
+        "id": "CS103L",
+        "name": "Data Communication and Computer Networks (Lab)",
+        "is_lab": true
+    },
+    {
+        "id": "CS102L",
+        "name": "Web Engineering (Lab)",
+        "is_lab": true
+    }
+] 

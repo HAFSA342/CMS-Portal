@@ -1,0 +1,872 @@
+body {
+    background: linear-gradient(135deg, #e8f5e9 0%, #ffffff 100%);
+}
+.faculty-dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+.sidebar {
+    width: 250px;
+    background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 0;
+    box-shadow: 2px 0 20px rgba(46, 125, 50, 0.08);
+    transition: width 0.3s;
+}
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: 0 30px 30px 30px;
+    border-bottom: 1px solid #388E3C;
+    margin-bottom: 20px;
+}
+.sidebar-header i {
+    margin-right: 12px;
+    font-size: 1.7rem;
+}
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+.sidebar nav ul li {
+    padding: 18px 30px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-left: 4px solid transparent;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.sidebar nav ul li.active, .sidebar nav ul li:hover {
+    background: #e8f5e9;
+    color: #2E7D32;
+    border-left: 4px solid #2E7D32;
+}
+.main-content {
+    flex: 1;
+    background: #fff;
+    padding: 40px 50px;
+    min-height: 100vh;
+    animation: fadeIn 0.7s;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.section {
+    display: none;
+}
+.section.active {
+    display: block;
+    animation: fadeIn 0.5s;
+}
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 18px;
+}
+.form-row input {
+    flex: 1;
+    padding: 15px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    background: #f8f9fa;
+    transition: border 0.2s;
+    min-height: 50px;
+}
+.form-row input:focus {
+    border-color: #2E7D32;
+    outline: none;
+}
+.action-btn {
+    background: linear-gradient(135deg, #2E7D32 0%, #388E3C 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    margin-top: 10px;
+}
+.action-btn:hover {
+    background: #1B5E20;
+    transform: translateY(-2px);
+}
+.action-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Student List Styles */
+.student-list {
+    margin-top: 30px;
+}
+
+.student-list h3 {
+    color: #2E7D32;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+}
+
+.student-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.student-card {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.student-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(46, 125, 50, 0.15);
+    border-color: #2E7D32;
+}
+
+.student-info h4 {
+    color: #2E7D32;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.student-info p {
+    margin: 8px 0;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+.student-info strong {
+    color: #2E7D32;
+    font-weight: 600;
+}
+
+.no-data {
+    text-align: center;
+    color: #6c757d;
+    font-style: italic;
+    padding: 40px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 2px dashed #dee2e6;
+}
+
+.error {
+    color: #dc3545;
+    text-align: center;
+    padding: 20px;
+}
+
+.more-students {
+    text-align: center;
+    color: #6c757d;
+    font-style: italic;
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+/* Success and Error Messages */
+.success-message, .error-message {
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    display: none;
+}
+
+.success-message {
+    background: #d4edda;
+    color: #155724;
+    border-left: 4px solid #28a745;
+}
+
+.error-message {
+    background: #f8d7da;
+    color: #721c24;
+    border-left: 4px solid #dc3545;
+}
+
+/* Loading Spinner */
+.fa-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 900px) {
+    .faculty-dashboard-container {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        padding: 0;
+        min-height: 60px;
+        box-shadow: none;
+    }
+    .sidebar-header {
+        display: none;
+    }
+    .sidebar nav ul {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+    }
+    .sidebar nav ul li {
+        flex: 1;
+        padding: 15px 0;
+        justify-content: center;
+        border-left: none;
+        border-bottom: 4px solid transparent;
+    }
+    .sidebar nav ul li.active, .sidebar nav ul li:hover {
+        background: #e8f5e9;
+        color: #2E7D32;
+        border-bottom: 4px solid #2E7D32;
+        border-left: none;
+    }
+    .main-content {
+        padding: 25px 10px;
+    }
+    .student-grid {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 600px) {
+    .main-content {
+        padding: 10px 2px;
+    }
+    .form-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .student-card {
+        padding: 15px;
+    }
+}
+
+/* Student Management Styles */
+.student-management {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.add-student-form {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+}
+
+.add-student-form h3 {
+    color: #2E7D32;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.students-table-container {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+    overflow: hidden;
+    max-height: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+.students-table-container h3 {
+    color: #2E7D32;
+    margin: 0;
+    padding: 25px 25px 15px 25px;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.table-controls {
+    display: flex;
+    gap: 15px;
+    padding: 0 25px 20px 25px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: #f8f9fa;
+    transition: border 0.2s;
+}
+
+.search-input:focus {
+    border-color: #2E7D32;
+    outline: none;
+    background: white;
+}
+
+#refreshStudents {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+#studentsTable {
+    padding: 0 25px 25px 25px;
+    overflow-y: auto;
+    flex: 1;
+    max-height: 400px;
+}
+
+/* Custom Scrollbar Styles */
+#studentsTable::-webkit-scrollbar {
+    width: 8px;
+}
+
+#studentsTable::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+#studentsTable::-webkit-scrollbar-thumb {
+    background: #2E7D32;
+    border-radius: 4px;
+}
+
+#studentsTable::-webkit-scrollbar-thumb:hover {
+    background: #1B5E20;
+}
+
+.students-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    min-width: 600px;
+}
+
+.students-table th {
+    background: #2E7D32;
+    color: white;
+    padding: 15px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.students-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 0.9rem;
+}
+
+.students-table tr:hover {
+    background: #f8f9fa;
+}
+
+.students-table tr:last-child td {
+    border-bottom: none;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-edit, .btn-delete {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-edit {
+    background: #2196F3;
+    color: white;
+}
+
+.btn-edit:hover {
+    background: #1976D2;
+    transform: translateY(-1px);
+}
+
+.btn-delete {
+    background: #f44336;
+    color: white;
+}
+
+.btn-delete:hover {
+    background: #d32f2f;
+    transform: translateY(-1px);
+}
+
+/* Edit Student Modal */
+.edit-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideUp 0.3s ease-out;
+}
+
+.edit-modal h3 {
+    color: #2E7D32;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+}
+
+.close-edit {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem;
+    color: #6c757d;
+    cursor: pointer;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+.close-edit:hover {
+    color: #2E7D32;
+}
+
+.edit-form-row {
+    margin-bottom: 15px;
+}
+
+.edit-form-row label {
+    display: block;
+    margin-bottom: 5px;
+    color: #495057;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.edit-form-row input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: #f8f9fa;
+    transition: border 0.2s;
+}
+
+.edit-form-row input:focus {
+    border-color: #2E7D32;
+    outline: none;
+    background: white;
+}
+
+.edit-form-buttons {
+    text-align: right;
+}
+
+.btn-save, .btn-cancel {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.btn-save {
+    background: #2E7D32;
+    color: white;
+}
+
+.btn-save:hover {
+    background: #1B5E20;
+}
+
+.btn-cancel {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-cancel:hover {
+    background: #495057;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .student-management {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .students-table-container {
+        max-height: 500px;
+    }
+    
+    #studentsTable {
+        max-height: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .table-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .students-table {
+        font-size: 0.8rem;
+        min-width: 500px;
+    }
+    
+    .students-table th,
+    .students-table td {
+        padding: 8px 6px;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        gap: 4px;
+    }
+    
+    .btn-edit, .btn-delete {
+        padding: 4px 8px;
+        font-size: 0.7rem;
+    }
+    
+    .edit-modal-content {
+        padding: 20px;
+        margin: 20px;
+    }
+    
+    .students-table-container {
+        max-height: 400px;
+    }
+    
+    #studentsTable {
+        max-height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .students-table {
+        min-width: 400px;
+        font-size: 0.7rem;
+    }
+    
+    .students-table th,
+    .students-table td {
+        padding: 6px 4px;
+    }
+    
+    .btn-edit, .btn-delete {
+        padding: 3px 6px;
+        font-size: 0.6rem;
+    }
+    
+    .students-table-container {
+        max-height: 350px;
+    }
+    
+    #studentsTable {
+        max-height: 200px;
+    }
+}
+
+/* Password Input Group Styles for Faculty Dashboard */
+.form-row .password-input-group {
+    flex: 1;
+    position: relative;
+}
+
+.form-row .password-input-group input {
+    width: 100%;
+    padding: 15px 15px 15px 45px;
+    padding-right: 45px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    background: #f8f9fa;
+    transition: border 0.2s;
+    min-height: 50px;
+}
+
+.form-row .password-input-group input:focus {
+    border-color: #2E7D32;
+    outline: none;
+}
+
+.form-row .password-input-group i:first-child {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+    z-index: 2;
+}
+
+.form-row .password-input-group input:focus + i:first-child {
+    color: #2E7D32;
+}
+
+.form-row .password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #6c757d;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    z-index: 3;
+}
+
+.form-row .password-toggle:hover {
+    color: #2E7D32;
+}
+
+.form-row .password-toggle:focus {
+    outline: none;
+    color: #2E7D32;
+}
+
+/* Change Password Form Styles */
+#change-password-section .password-input-group {
+    margin-bottom: 20px;
+}
+
+#change-password-section .password-input-group input {
+    width: 100%;
+    padding: 18px 15px 18px 50px;
+    padding-right: 50px;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+    min-height: 55px;
+}
+
+#change-password-section .password-input-group input:focus {
+    border-color: #2E7D32;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.1);
+}
+
+#change-password-section .password-input-group i:first-child {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+    z-index: 2;
+}
+
+#change-password-section .password-input-group input:focus + i:first-child {
+    color: #2E7D32;
+}
+
+#change-password-section .password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #6c757d;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    z-index: 3;
+}
+
+#change-password-section .password-toggle:hover {
+    color: #2E7D32;
+}
+
+#change-password-section .password-toggle:focus {
+    outline: none;
+    color: #2E7D32;
+}
+
+/* Subject Management Section */
+.subject-manager {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.student-selection-container {
+    margin-bottom: 20px;
+}
+
+.student-selection-container label {
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+}
+
+#studentSelector, #masterSubjectSelector {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+#studentSubjectDetails.hidden {
+    display: none;
+}
+
+#studentSubjectDetails h3 {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    color: #2c5e3f;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.subject-enrollment {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.subject-enrollment h4 {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.enrolled-subject-card {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    transition: box-shadow 0.3s ease;
+}
+
+.enrolled-subject-card:hover {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.subject-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.subject-card-header h5 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.subject-tabs {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+}
+
+.subject-tab {
+    padding: 10px 15px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+    color: #666;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.subject-tab.active {
+    color: #2c5e3f;
+    border-bottom-color: #2c5e3f;
+}
+
+.subject-tab-content {
+    display: none;
+}
+
+.subject-tab-content.active {
+    display: block;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.form-grid input {
+    width: 100%;
+} 
