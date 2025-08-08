@@ -72,4 +72,4 @@ The system includes the following subjects:
 
 ## License
 
-© 2024 Sir Syed University of Engineering & Technology. All rights reserved.
+© 2025 Sir Syed University of Engineering & Technology. All rights reserved.
